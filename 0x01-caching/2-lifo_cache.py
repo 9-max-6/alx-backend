@@ -31,49 +31,6 @@ class BaseCaching():
         """
         raise NotImplementedError("get must be implemented in your cache class")
 
-class BasicCache(BaseCaching):
-    """ A caching system that inherits from the
-    BaseCaching class
-    """
-    def __init__(self):
-        """Initialize"""
-        super().__init__()
-
-    def put(self, key, item):
-        """A function to add an item to the cache"""
-        if not key or not item:
-            return
-        self.cache_data[key] = item
-
-    def get(self, key):
-        """A function to return the value linked to the key"""
-        if key:
-            return self.cache_data.get(key)
-
-class FIFOCache(BaseCaching):
-    """A class to implement FIFO caching"""
-    def __init__(self):
-        """Initialize"""
-        super().__init__()
-    
-
-    def put(self, key, item):
-        """A function to add a key to the cache dictionary"""
-        dic_keys = self.cache_data.keys()
-        if dic_keys == self.MAX_ITEMS:
-            del_key = dic_keys[0]
-            del self.cache_data[del_key]
-            print(f"DISCARD: {del_key}")
-
-        if key and item:
-            self.cache_data[key] = item
-        
-
-    def get(self, key):
-        """A function to get a """
-        if key:
-            return self.cache_data.get(key)
-
 
 class LIFOCache(BaseCaching):
     """A class to implement the LIFO cache"""
