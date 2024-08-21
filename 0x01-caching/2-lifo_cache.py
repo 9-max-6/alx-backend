@@ -14,8 +14,8 @@ class LIFOCache(BaseCaching):
         """A function to add an item to the cache"""
         dic_keys = self.cache_data.keys()
 
-        if dic_keys == self.MAX_ITEMS:
-            del_key = dic_keys[-1]
+        if len(dic_keys) == self.MAX_ITEMS:
+            del_key = list(dic_keys)[-1]
             del self.cache_data[del_key]
             print(f"DISCARD: {del_key}")
 
