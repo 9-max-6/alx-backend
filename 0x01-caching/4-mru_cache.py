@@ -1,35 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ BaseCaching module
 """
-
-class BaseCaching():
-    """ BaseCaching defines:
-      - constants of your caching system
-      - where your data are stored (in a dictionary)
-    """
-    MAX_ITEMS = 4
-
-    def __init__(self):
-        """ Initiliaze
-        """
-        self.cache_data = {}
-
-    def print_cache(self):
-        """ Print the cache
-        """
-        print("Current cache:")
-        for key in sorted(self.cache_data.keys()):
-            print("{}: {}".format(key, self.cache_data.get(key)))
-
-    def put(self, key, item):
-        """ Add an item in the cache
-        """
-        raise NotImplementedError("put must be implemented in your cache class")
-
-    def get(self, key):
-        """ Get an item by key
-        """
-        raise NotImplementedError("get must be implemented in your cache class")
+from base_caching import BaseCaching
 
 
 class MRUCache(BaseCaching):
@@ -40,7 +12,6 @@ class MRUCache(BaseCaching):
         """init"""
         super().__init__()
         self.used_keys = []
-    
 
     def put(self, key, item):
         """A function to add an item to the cache"""
@@ -56,10 +27,11 @@ class MRUCache(BaseCaching):
 
                 self.cache_data[key] = item
                 self.update_mru(key)
+
     def mru(self):
         """A function to determine the key with the
         least count"""
-        mru_index  = self.used_keys.pop(-1)
+        mru_index = self.used_keys.pop(-1)
         return mru_index
 
     def update_mru(self, key):
