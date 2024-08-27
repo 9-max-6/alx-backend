@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello():
+def hello() -> str:
     """A function to render template"""
     return render_template('0-index.html')
 
