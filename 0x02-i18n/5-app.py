@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Welcome to Holberton"""
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, _
 
 
 class Config:
@@ -17,16 +17,19 @@ babel = Babel(app)
 
 
 @app.route("/")
-def hello():
-    return render_template('2-index.html')
+def hello() -> str:
+    return render_template('1-index.html')
 
 
 @babel.localeselector
 def get_locale() -> str:
     """determine the locale of the user"""
+    locale = request.args.get("locale")
+    if locale in app.config["LANGUAGES"]:
+        return locale
     return request.accept_languages.best_match(
-        Config.LANGUAGES
-    )
+            app.config["LANGUAGES"]
+        )
 
 
 if __name__ == "__main__":
