@@ -25,7 +25,7 @@ def hello():
 def get_locale():
     """determine the locale of the user"""
     return request.accept_languages.best_match(
-        Config.LANGUAGES
+        app.config["LANGUAGES"]
     )
 
 
