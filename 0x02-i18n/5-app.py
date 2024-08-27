@@ -11,9 +11,6 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-
-
-
 app = Flask(__name__)
 app.config.from_object(Config)
 babel = Babel(app)
@@ -44,6 +41,7 @@ def before_request() -> None:
     """A function to be called before the rest."""
     user = get_user()
     g.user = user
+
 
 @babel.localeselector
 def get_locale() -> str:
