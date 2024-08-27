@@ -22,7 +22,7 @@ def hello():
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """determine the locale of the user"""
     return request.accept_languages.best_match(
         Config.LANGUAGES
