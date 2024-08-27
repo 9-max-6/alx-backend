@@ -4,8 +4,10 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello():
+    """A function to render template"""
     return render_template('0-index.html')
 
 
