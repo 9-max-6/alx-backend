@@ -25,7 +25,7 @@ users = {
 @app.route("/")
 def hello() -> str:
     """root route"""
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 def get_user():
