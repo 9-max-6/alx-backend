@@ -56,17 +56,15 @@ for (const jobData of jobs) {
     } else {
       console.log('Notificated job created:', job.id);
     }
-
-    job.on('progress', (progress, data) => {
-      console.log(`Notification job ${job.id} ${progress}% complete`);
-      console.log('Job data: ', data);
-    });
-
-    job.on('error', (err) => {
-      console.log(`Notification job ${job.id} failed: ${err.toString()}`);
-    });
   });
 
+  job.on('progress', (progress) => {
+    console.log(`Notification job ${job.id} ${progress}% complete`);
+  });
+
+  job.on('error', (err) => {
+    console.log(`Notification job ${job.id} failed: ${err.toString()}`);
+  });
   job.on('complete', () => {
     console.log(`Notification job ${job.id} completed`);
   });
