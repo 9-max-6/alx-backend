@@ -14,8 +14,10 @@ const publishMessage = (message, time) => {
 
 publisher.on('connect', () => {
   console.log('Redis client connected to the server');
-  publishMessage('Holberton Student #1 starts course', 1000);
+  publishMessage('Holberton Student #1 starts course', 300);
   publishMessage('Holberton Student #2 starts course', 200);
   publishMessage('KILL_SERVER', 300);
   publishMessage('Holberton Student #3 starts course', 400);
 });
+
+publisher.connect();
