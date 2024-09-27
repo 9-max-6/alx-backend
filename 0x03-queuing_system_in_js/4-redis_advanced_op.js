@@ -1,6 +1,4 @@
 import { createClient, print } from 'redis';
-import { promisify } from 'util';
-// No promisification needed for this
 
 const client = createClient();
 
@@ -14,8 +12,7 @@ const setNewSchool = (schoolName, value) => {
 
 const displaySchoolValue = async (schoolName) => {
   try {
-    const asyncGet = promisify(client.get).bind(client);
-    const value = await asyncGet(schoolName);
+    const value = await client.get(schoolName);
     console.log(value);
   } catch (err) {
     console.error(`Failed to get value for ${schoolName}:`, err);
