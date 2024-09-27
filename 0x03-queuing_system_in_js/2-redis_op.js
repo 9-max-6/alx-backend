@@ -12,7 +12,7 @@ const setNewSchool = (schoolName, value) => {
 
 const displaySchoolValue = async (schoolName) => {
   try {
-    const value = await client.get(schoolName); // Use lowercase 'get', no need for promisify
+    const value = await client.get(schoolName);
     console.log(value);
   } catch (err) {
     console.error(`Failed to get value for ${schoolName}:`, err);
