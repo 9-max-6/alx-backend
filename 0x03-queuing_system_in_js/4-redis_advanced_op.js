@@ -6,28 +6,39 @@ client.on('error', (err) => {
   console.log('Redis client not connected to the server:', err.toString());
 });
 
-const setNewSchool = (schoolName, value) => {
-  client.set(schoolName, value, print); // Use lowercase 'set'
+const hashKey = 'HolbertonSchools';
+const hashValue = {
+  Portland: '50',
+  Seattle: '80',
+  'New York': '20',
+  Bogota: '20',
+  Cali: '40',
+  Paris: '2',
 };
 
-const displaySchoolValue = async (schoolName) => {
-  try {
-    const value = await client.get(schoolName);
-    console.log(value);
-  } catch (err) {
-    console.error(`Failed to get value for ${schoolName}:`, err);
-  }
-};
-
-async function main() {
-  await displaySchoolValue('Holberton');
-  setNewSchool('HolbertonSanFrancisco', '100');
-  await displaySchoolValue('HolbertonSanFrancisco');
-}
-
-client.on('connect', async () => {
+client.on('connect', () => {
   console.log('Redis client connected to the server');
-  await main();
+  Object.entries(hashValue).forEach(([innerKey, innerValue]) => {
+    createHash(hashKey, innerKey, innerValue);
+  });
+  displayHash(hashKey);
 });
+
+const createHash = (hashKey, innerKey, innerValue) => {
+  client.hSet(hashKey, innerKey, innerValue).then((result) => {
+    console.log(`Reply: ${result}`);
+  });
+};
+
+const displayHash = (hashKey) => {
+  client
+    .hGetAll(hashKey)
+    .then((result) => {
+      console.log('Hash contents:', result);
+    })
+    .catch((err) => {
+      console.log('Error retrieving hash:', err.toString());
+    });
+};
 
 client.connect();
